@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        h2 {
+            position: absolute;
+        }
+        .pointer {
+            cursor: pointer;
+        }
+        audio {
+            display: none;
+        }
+        iframe {
+            display:none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <iframe src="silence.m4a" allow="autoplay" id="audio"></iframe>
+
+    <audio controls autoplay loop class="flyAudio">
+        <source src="fly.mp3" type="audio/mp3">
+    </audio>
+
+    <audio controls class="slapAudio">
+        <source src="slap.mp3" type="audio/mp3">
+    </audio>
+
+    <img src="fly.png" alt="fly">
+
+    <script>
+        let flyAround = document.querySelector("img");
+        let flyAudio = document.querySelector(".flyAudio");
+        let slapAudio = document.querySelector(".slapAudio");
+
+        let timeInt = setInterval(ranPlace, 1000);
+
+        flyAround.classList.add("pointer");
+
+        function ranPlace() {
+        let randomNumber1 = Math.floor(Math.random()*30);
+        let randomNumber2 = Math.floor(Math.random()*25);
+            flyAround.style.marginLeft = randomNumber1 + "vh";
+            flyAround.style.marginTop = randomNumber2 + "vw";
+        flyAround.classList.add("pointer");
+        flyAround.addEventListener("click", flyDead);
+}
+        function flyDead() {
+            flyAround.removeEventListener("click",flyDead);
+           flyAudio.pause();
+           slapAudio.play();
+            clearInterval(timeInt);
+            flyAround.setAttribute("src", "dead.png");
+            flyAround.classList.remove("pointer");
+
+        }
+
+    </script>
+</body>
+</html>
